@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
     printf("File before changes:\n");
     pfile(file);
-    
+
     long size = ftell(file);
     fseek(file, 0, SEEK_SET);
 
@@ -49,8 +49,16 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    fprintf(file, line);
-    fprintf(file, file_copy);
+    // Potential expliot
+    /*
+        fprintf(file, line);
+        fprintf(file, file_copy);
+    */
+
+    for(int i = 0; line[i] != '\0'; i++) // i < len doesn't work. Some how var len gets value 120.
+        fprintf(file, "%c", line[i]);
+    for(int i = 0; i < size; i++)
+        fprintf(file, "%c", file_copy[i]);
     fclose(file);
 
     if((file = fopen(argv[1], "r")) == NULL)
