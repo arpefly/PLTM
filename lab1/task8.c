@@ -49,8 +49,8 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    // Potential expliot
     /*
+        Potential expliot doe to regex such as '%s' or '\'
         fprintf(file, line);
         fprintf(file, file_copy);
     */
