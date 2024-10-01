@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const char* PRODUCT_FORMAT_IN = "%[^;];%d";
+const char* PRODUCT_FORMAT_IN = "%20[^;];%d\n";
 const char* PRODUCT_FORMAT_OUT = "%s;%d\n";
 
 typedef struct {
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
     int read = 0;
     int i = 0;
     do {
-        read = fscanf(file, "%20[^;];%d\n", products[i].name, &products[i].price);
+        read = fscanf(file, PRODUCT_FORMAT_IN, products[i].name, &products[i].price);
 
         if (read == 2)
             i++;
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
     }
 
     for (int i = 0; i < records; i++)
-        fprintf(file, "%s;%d\n", products[i].name, products[i].price);
+        fprintf(file, PRODUCT_FORMAT_OUT, products[i].name, products[i].price);
 
     fclose(file);
     free(products);

@@ -32,7 +32,7 @@ int parse(char* strin, char* strout) {
         return 1;
     }
 
-    stack* stck = init(0);
+    stack* stck = NULL;
 
     for (int i = 0; i < line[i] != '\0'; i++) {
         if (isdigit(line[i])) {

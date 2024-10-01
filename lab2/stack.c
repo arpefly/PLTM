@@ -46,7 +46,7 @@ size_t size(stack *head) {
 }
 
 int empty(stack *head) {
-    if (head->next == NULL)
+    if (head == NULL)
         return 1;
     else
         return 0;
