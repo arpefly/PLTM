@@ -25,7 +25,6 @@ int parse(char* strin, char* strout) {
 
     getline(&line, &len, file);
     fclose(file);
-    printf("%s\n", line);
 
     if ((file = fopen(strout, "w")) == NULL) {
         printf("[ERROR] Unable to write to file at path: %s\n", strout);

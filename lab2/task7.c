@@ -3,7 +3,7 @@
 #include "stack.c"
 
 T calc(char* strin) {
-    stack* stck = init(0);
+    stack* stck = NULL  ;
     
     FILE* file = NULL;
     char* line = NULL;
