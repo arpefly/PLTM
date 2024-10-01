@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     }
 
     FILE* file;
-    if ((file = fopen("task5in.csv", "r")) == NULL) {
+    if ((file = fopen(argv[1], "r")) == NULL) {
         printf("[ERROR] Unable to read file %s\n", argv[1]);
         exit(EXIT_FAILURE);
     }
@@ -66,8 +66,8 @@ int main(int argc, char* argv[]) {
 
     fclose(file);
 
-    if ((file = fopen("task5out.csv", "w")) == NULL) {
-        printf("[ERROR] Unable to wrtie to file %s\n", argv[1]);
+    if ((file = fopen(argv[2], "w")) == NULL) {
+        printf("[ERROR] Unable to wrtie to file %s\n", argv[2]);
         exit(EXIT_FAILURE);
     }
 

@@ -15,7 +15,7 @@ int main()
     srand(time(0));
 
     for (int i = 0; i < n; i++)
-        arr[i] = rand() % max;
+        arr[i] = rand() % (max+1);
     
     for (int i = 0; i < n; i++)
         printf("%d\n", arr[i]);

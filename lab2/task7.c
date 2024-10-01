@@ -1,23 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include "stack.c"
 
-int main(int argc, char* argv[]) {
-    stack* stek = init(0);
+T calc(char* strin) {
+    stack* stck = init(0);
     
-    FILE* file;
+    FILE* file = NULL;
     char* line = NULL;
     size_t len = 0;
 
-    if ((file = fopen(argv[1], "r")) == NULL) {
-        printf("[ERROR] Unable to read file at path: %s\n", argv[1]);
-        exit(EXIT_FAILURE);
+    if ((file = fopen(strin, "r")) == NULL) {
+        printf("[ERROR] Unable to read file at path: %s\n", strin);
+        return 1;
     }
 
     getline(&line, &len, file);
     fclose(file);
-
+    
     printf("%s\n", line);
 
     char c = '\0';
@@ -25,33 +24,39 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < line[i] != '\0'; i++)
     {
         c = line[i];
-        if (isdigit(line[i])) {
-            push(&stek, (double)c-48);
+        if (isdigit(c)) {
+            push(&stck, (double)c-48);
         }
         else {
-            right = pop(&stek);
-            left = pop(&stek);
+            right = pop(&stck);
+            left = pop(&stck);
         
             switch (c)
             {
                 case '+':
-                    push(&stek, left+right);
+                    push(&stck, left+right);
                     break;
                 case '-':
-                    push(&stek, left-right);
+                    push(&stck, left-right);
                     break;
                 case '*':
-                    push(&stek, left*right);
+                    push(&stck, left*right);
                     break;
                 case '/':
-                    push(&stek, left/right);
+                    push(&stck, left/right);
                     break;
+                default:
+                    return 1;
             }
         }
     }
 
-    printf("%lf\n", pop(&stek));
+    printf("%lf\n", pop(&stck));
 
-    dispose(&stek);
-    return 0;   
+    dispose(&stck);
+    return 0;
+}
+
+int main(int argc, char* argv[]) {
+    return calc(argv[1]);
 }

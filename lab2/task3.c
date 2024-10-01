@@ -16,7 +16,7 @@ int main()
         arr[i] = (float)rand()/RAND_MAX;
     
     for (int i = 0; i < arr_size; i++)
-        printf("%lf\arr_size", arr[i]);
+        printf("%lf\n", arr[i]);
 
     return 0;
 }

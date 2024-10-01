@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
     }
 
     /*
-        Potential expliot doe to regex such as '%s' or '\'
+        Potential expliot due to regex such as '%s' or '\'
         fprintf(file, line);
         fprintf(file, file_copy);
     */

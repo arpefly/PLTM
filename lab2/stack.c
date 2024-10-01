@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/sysinfo.h>
 
-#define STACK_OVERFLOW  -100
-#define STACK_UNDERFLOW -101
+#define STACK_UNDERFLOW -100
+#define STACK_OVERFLOW -101
+#define MAXSTACK 1000000
 
+
+int stackcount = 0;
 typedef double T;
 typedef struct stack {
     T value;
@@ -15,12 +19,16 @@ stack* push(stack** head, T n);
 T pop(stack** head);
 T peek(stack* head);
 size_t size(stack* head);
-int empty(stack** head);
+int empty(stack* head);
 void dispose(stack** head);
 
 stack* init(T n) {
     stack* new_stack = (stack*)malloc(sizeof(stack));
-    
+    if (new_stack == NULL) {
+        printf("Allocation memory error");
+        return NULL;
+    }
+
     new_stack->value = n;
     new_stack->next = NULL;
 
@@ -37,8 +45,8 @@ size_t size(stack *head) {
     return size;
 }
 
-int empty(stack** head) {
-    if ((*head) == NULL)
+int empty(stack *head) {
+    if (head->next == NULL)
         return 1;
     else
         return 0;
@@ -52,13 +60,21 @@ T peek(stack *head) {
 }
 
 stack* push(stack **head, T n) {
+    if (stackcount == MAXSTACK) {
+        printf("STACK_OVERFLOW\n");
+        exit(STACK_OVERFLOW);
+    }
+
     stack* new_stack = init(n);
-    
-    if (new_stack == NULL) exit(STACK_OVERFLOW);
+
+    if (new_stack == NULL) {
+        return *head;
+    }
 
     new_stack->next = *head;
     *head = new_stack;
 
+    stackcount++;
     return new_stack;
 }
 
@@ -72,6 +88,7 @@ T pop(stack **head) {
     val = out->value;
     free(out);
 
+    stackcount--;
     return val;
 }
 
@@ -82,5 +99,5 @@ void dispose(stack **head) {
         ant = ant -> next;
         free(tmp);
     }
-    free(ant);    
+    free(ant);
 }
