@@ -14,7 +14,7 @@ int yylex();
 %token <d> NUMBER
 %token EOL
 %type <a> exp factor term
-
+./
 %%
 calclist: %empty
     | calclist exp EOL {

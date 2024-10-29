@@ -53,3 +53,11 @@ dkms.conf
 
 # VS Code
 /.vscode
+
+#YACC
+*.tab.c
+*.tab.h
+
+#Lex
+*.yy.c
+
