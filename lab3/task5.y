@@ -7,7 +7,7 @@ int yylex();
 %}
 
 %union {
-  struct ast *a;
+  struct ast* a;
   double d;
 }
 

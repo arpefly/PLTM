@@ -1,11 +1,10 @@
 extern int yylineno;
-void yyerror(char *s, ...);
-
+void yyerror(char* s, ...);
 
 struct ast {
   int nodetype;
-  struct ast *l;
-  struct ast *r;
+  struct ast* l;
+  struct ast* r;
 };
 
 struct numval {
@@ -13,9 +12,9 @@ struct numval {
   double number;
 };
 
-struct ast *newast(int nodetype, struct ast *l, struct ast *r);
-struct ast *newnum(double d);
+struct ast* newast(int nodetype, struct ast* l, struct ast* r);
+struct ast* newnum(double d);
 
-double eval(struct ast *);
+double eval(struct ast*);
 
-void treefree(struct ast *);
+void treefree(struct ast*);

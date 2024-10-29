@@ -66,7 +66,7 @@ union YYSTYPE
 {
 #line 9 "task5.y"
 
-  struct ast *a;
+  struct ast* a;
   double d;
 
 #line 73 "task5.tab.h"

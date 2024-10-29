@@ -4,7 +4,7 @@
 #include "task5.h"
 #include "task5.tab.h"
 
-struct ast* newast(int nodetype, struct ast *l, struct ast *r) {
+struct ast* newast(int nodetype, struct ast* l, struct ast* r) {
     struct ast* a = malloc(sizeof(struct ast));
     
     if(!a) {
@@ -24,22 +24,21 @@ struct ast* newnum(double d) {
         yyerror("out of space");
         exit(0);
     }
-    a->nodetype = 'K';
+    a->nodetype = 'C';
     a->number = d;
-    return (struct ast *)a;
+    return (struct ast* )a;
 }
 
-double eval(struct ast *a) {
+double eval(struct ast* a) {
     double v;
 
     switch(a->nodetype) {
-        case 'K': v = ((struct numval*)a)->number; break;
+        case 'C': v = ((struct numval*)a)->number; break;
 
         case '+': v = eval(a->l) + eval(a->r); break;
         case '-': v = eval(a->l) - eval(a->r); break;
         case '*': v = eval(a->l) * eval(a->r); break;
         case '/': v = eval(a->l) / eval(a->r); break;
-        case '|': v = eval(a->l); if(v < 0) v = -v; break;
         case 'M': v = -eval(a->l); break;
         default: printf("[ERROR]: bad node %c\n", a->nodetype);
     }
@@ -54,12 +53,11 @@ void treefree(struct ast *a) {
         case '*':
         case '/':
             treefree(a->r);
-        case '|':
         case 'M':
             treefree(a->l);
-        case 'K':
+        case 'C':
             free(a);
-        break;
+            break;
         default: printf("[ERROR]: free bad node %c\n", a->nodetype);
     }
 }
@@ -67,8 +65,8 @@ void treefree(struct ast *a) {
 void yyerror(char *s, ...) {
     va_list ap;
     va_start(ap, s);
-
-    fprintf(stderr, "%d: [ERROR]: ", yylineno);
+    
+    fprintf(stderr, "[ERROR]: ");
     vfprintf(stderr, s, ap);
     fprintf(stderr, "\n");
 }
